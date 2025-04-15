@@ -1,0 +1,15 @@
+/* Sidebar wrapper base */
+.sidebar-wrapper {
+    width: 250px;
+    transition: all 0.5s ease;
+    overflow: hidden;
+    background-color: #fff; /* or your sidebar background */
+  }
+  
+  /* When collapsed (hidden) */
+  .sidebar-wrapper.collapsed {
+    width: 0;
+    padding: 0;
+    border: none;
+  }
+  

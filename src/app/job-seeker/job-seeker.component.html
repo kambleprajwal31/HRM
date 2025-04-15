@@ -1,0 +1,60 @@
+<div class="container mt-4">
+    <h4 class="mb-3">Job Seeker</h4>
+    <div class="row g-2 align-items-end">
+      <div class="col-md-2">
+        <label><strong>Department</strong></label>
+        <select class="form-select" [(ngModel)]="newJobSeeker.departmentId" name="departmentId" required>
+          <option *ngFor="let dept of departments" [value]="dept.id">{{ dept.name }}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label><strong>Name</strong></label>
+        <input type="text" class="form-control" placeholder="Name" [(ngModel)]="newJobSeeker.name" required>
+      </div>
+      <div class="col-md-2">
+        <label><strong>Email</strong></label>
+        <input type="email" class="form-control" placeholder="Email" [(ngModel)]="newJobSeeker.email" required>
+      </div>
+      <div class="col-md-2">
+        <label><strong>Contact No.</strong></label>
+        <input type="text" class="form-control" placeholder="Contact" [(ngModel)]="newJobSeeker.contactNo" required>
+      </div>
+      <div class="col-md-2">
+        <label><strong>Resume</strong></label>
+        <input type="file" class="form-control" (change)="onFileSelected($event)" required>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-primary w-100" (click)="addJobSeeker()">Add</button>
+      </div>
+    </div>
+  
+    <hr class="my-4">
+  
+    <h4>Job Seeker List</h4>
+    <table class="table table-bordered mt-3">
+      <thead class="table-light">
+        <tr>
+          <th>Sr. No</th>
+          <th>Department</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Contact No.</th>
+          <th>Resume</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let js of jobSeekers; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ js.department?.name }}</td>
+          <td>{{ js.name }}</td>
+          <td>{{ js.email }}</td>
+          <td>{{ js.contactNo }}</td>
+          <td>
+            <button class="btn btn-success btn-sm me-1" (click)="downloadResume(js.id!)">Download</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteJobSeeker(js.id!)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

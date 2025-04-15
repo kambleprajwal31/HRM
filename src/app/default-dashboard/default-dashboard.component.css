@@ -1,0 +1,170 @@
+.announcement-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      background-color: #e7f3ff;
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+  .list-group-item {
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+  }
+  .list-group-item:hover {
+    transform: scale(1.01);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+ 
+  /* .card {
+    border-radius: 1rem;
+    height: 100%;
+  }
+  
+  .row > [class*='col-'] {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+  
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+   */
+   .calendar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding: 1rem;
+    background: #f9f9f9;
+  }
+  
+  .month-header {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+  }
+  
+  .calendar-sidebar, .event-sidebar {
+    width: 45%;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+  }
+  
+  .calendar-day {
+    display: inline-block;
+    margin: 0.5rem;
+    padding: 1rem;
+    border-radius: 50%;
+    background: #efefef;
+  }
+  
+  .holiday {
+    background: orange;
+  }
+  
+  .task {
+    background: blue;
+  }
+  
+  .calendar-event {
+    background-color: #e3f2fd;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .create-btn {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .event-item {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .calendar-popup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    max-width: 300px;
+  }
+  
+  .calendar-popup h3, h4 {
+    margin: 5px 0;
+  }
+  
+  .calendar-popup ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .calendar-popup li {
+    margin: 5px 0;
+  }
+  .calendar-container {
+    margin-bottom: 20px;
+  }
+  .task-container {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  .task-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+  }
+  .modal.show {
+    display: block;
+  }
+  .task-creation {
+    margin: 20px;
+  }
+  ul {
+    list-style-type: none;
+  }
+  
+  li {
+    padding: 10px;
+    background-color: #f9f9f9;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  li:hover {
+    background-color: #f1f1f1;
+  }
+  
+  h3 {
+    margin-top: 20px;
+  }
+  
+  a {
+    color: blue;
+    text-decoration: underline;
+  }

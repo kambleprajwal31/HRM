@@ -1,0 +1,58 @@
+<h2 class="mb-4 text-center">Complete HR Profile</h2>
+
+<form (ngSubmit)="onSubmit()" class="container" style="max-width: 600px;">
+  <div class="mb-3">
+    <label class="form-label">Designation</label>
+    <input class="form-control" [(ngModel)]="hrData.designation" name="designation" required />
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Joining Date</label>
+    <input class="form-control" [(ngModel)]="hrData.joiningDate" name="joiningDate" type="date" required />
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Phone Number</label>
+    <input class="form-control" [(ngModel)]="hrData.phoneNumber" name="phoneNumber" required />
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Address</label>
+    <textarea class="form-control" [(ngModel)]="hrData.address" name="address" rows="2" required></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Gender</label>
+    <select class="form-select" [(ngModel)]="hrData.gender" name="gender" required>
+      <option value="" disabled selected>Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Date of Birth</label>
+    <input class="form-control" [(ngModel)]="hrData.dob" name="dob" type="date" required />
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Marital Status</label>
+    <select class="form-select" [(ngModel)]="hrData.maritalStatus" name="maritalStatus" required>
+      <option value="" disabled selected>Select Marital Status</option>
+      <option value="Single">Single</option>
+      <option value="Married">Married</option>
+      <option value="Divorced">Divorced</option>
+      <option value="Widowed">Widowed</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Upload Profile Image</label>
+    <input class="form-control" type="file" (change)="onImageChange($event)" />
+  </div>
+
+  <div class="d-grid">
+    <button type="submit" class="btn btn-primary">Save Profile</button>
+  </div>
+</form>

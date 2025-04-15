@@ -1,0 +1,148 @@
+<div class="container-fluid p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h3 class="fw-bold mb-1">👥 Roles</h3>
+        <small class="text-muted">Dashboard &gt; Roles</small>
+      </div>
+      <button class="btn btn-primary" (click)="openModal()">
+        <i class="bi bi-plus-circle me-2"></i> Add Role
+      </button>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let dept of departments">
+        <div class="card shadow-sm rounded-4">
+          <div class="card-body">
+            <h5 class="text-secondary fw-bold">{{ dept.name }}</h5>
+            <ul class="list-group">
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center"
+                *ngFor="let role of departmentRoleMap[dept.id] || []"
+              >
+                <div>
+                  <i class="bi bi-person-fill me-2 text-muted"></i>{{ role.name }}
+                </div>
+                <div class="dropdown">
+                  <button
+                    class="btn btn-sm btn-light rounded-circle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a class="dropdown-item" (click)="openEditModal(role)">
+                        <i class="bi bi-pencil me-2"></i>Edit
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item text-danger" (click)="openDeleteConfirm(role)">
+                        <i class="bi bi-trash me-2"></i>Delete
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Add Role Modal -->
+  <div class="modal fade" #roleModal id="roleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 shadow-sm">
+        <form (ngSubmit)="addRole()">
+          <div class="modal-header border-0 pb-0">
+            <h5 class="modal-title fw-bold">➕ Add Role</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body pt-2">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Role Name</label>
+              <input
+                type="text"
+                class="form-control rounded-3"
+                [(ngModel)]="newRole.name"
+                name="roleName"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Department</label>
+              <select
+                class="form-select rounded-3"
+                [(ngModel)]="newRole.departmentId"
+                name="departmentId"
+                required
+              >
+                <option value="" disabled selected>Select department</option>
+                <option *ngFor="let dept of departments" [value]="dept.id">
+                  {{ dept.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button type="submit" class="btn btn-success w-100 rounded-pill fw-semibold">
+              ✅ Add Role
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Edit Role Modal -->
+  <div class="modal fade" #editModal id="editModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3 rounded-4 shadow-sm">
+        <form (ngSubmit)="updateRole()">
+          <div class="modal-header border-0 pb-0">
+            <h5 class="modal-title fw-bold">✏️ Edit Role</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body pt-2">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Role Name</label>
+              <input type="text" class="form-control" [(ngModel)]="editableRole.name" name="editName" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Department</label>
+              <select class="form-select" [(ngModel)]="editableRole.departmentId" name="editDepartment" required>
+                <option *ngFor="let dept of departments" [value]="dept.id">{{ dept.name }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button type="submit" class="btn btn-warning w-100 rounded-pill fw-semibold">Update Role</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Delete Confirmation Modal -->
+  <div class="modal fade" #deleteModal id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 shadow-sm">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title text-danger fw-bold">⚠️ Delete Role</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body pt-2">
+          Are you sure you want to delete <strong>{{ roleToDelete?.name }}</strong>?
+        </div>
+        <div class="modal-footer border-0">
+          <button class="btn btn-danger w-100 rounded-pill fw-semibold" (click)="deleteRole()">
+            🗑️ Confirm Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

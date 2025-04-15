@@ -1,0 +1,95 @@
+<div class="container mt-4">
+    <h2 class="mb-3">Project Requirements</h2>
+  
+    <!-- Add Requirement Form -->
+    <form (ngSubmit)="onAdd()" #reqForm="ngForm" enctype="multipart/form-data" class="mb-4 row g-3">
+      <div class="col-md-3">
+        <label for="departmentId" class="form-label fw-bold">Department</label>
+        <select class="form-select" [(ngModel)]="newRequirement.departmentId" name="departmentId" required>
+          <option *ngFor="let dept of departments" [value]="dept.id">{{ dept.name }}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="details" class="form-label fw-bold">Project Requirement Details</label>
+        <input type="text" id="details" class="form-control" placeholder="Details" [(ngModel)]="newRequirement.details" name="details" required>
+      </div>
+      
+      <div class="col-md-2">
+        <label for="resources" class="form-label fw-bold">Resources Required</label>
+        <input type="number" id="resources" class="form-control" placeholder="Resources" [(ngModel)]="newRequirement.resourceRequired" name="resourceRequired" required>
+      </div>
+      
+      <div class="col-md-2">
+        <label for="jobDesc" class="form-label fw-bold">Job Description File</label>
+        <input type="file" id="jobDesc" (change)="onFileSelected($event)" class="form-control" required>
+      </div>
+      
+      <div class="col-md-2 d-flex align-items-end">
+        <button class="btn btn-primary w-100" type="submit">Add</button>
+      </div>
+      
+    </form>
+  
+    <!-- Requirements Table -->
+    <hr class="my-4">
+  
+    <h4>Project Requirements List</h4>
+    <table class="table table-bordered table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>Sr. No</th>
+          <th>Department</th>
+          <th>Details</th>
+          <th>Resources</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let req of requirements; let i = index">
+            <td>{{ i + 1 }}</td>
+          
+            <!-- Department dropdown when editing -->
+            <td *ngIf="editingId === req.id; else displayDept">
+              <select [(ngModel)]="editDepartmentId" class="form-select form-select-sm">
+                <option *ngFor="let dept of departments" [value]="dept.id">{{ dept.name }}</option>
+              </select>
+            </td>
+            <ng-template #displayDept>
+              <td>{{ req.department.name }}</td>
+            </ng-template>
+          
+            <!-- Details field -->
+            <td *ngIf="editingId === req.id; else displayDetails">
+              <input [(ngModel)]="editDetails" class="form-control form-control-sm" />
+            </td>
+            <ng-template #displayDetails>
+              <td>{{ req.details }}</td>
+            </ng-template>
+          
+            <!-- Resource Required -->
+            <td *ngIf="editingId === req.id; else displayResource">
+              <input type="number" [(ngModel)]="editResourceRequired" class="form-control form-control-sm" />
+            </td>
+            <ng-template #displayResource>
+              <td>{{ req.resourceRequired }}</td>
+            </ng-template>
+          
+            <!-- Action buttons -->
+            <td>
+              <button class="btn btn-success btn-sm me-1" *ngIf="editingId !== req.id" (click)="downloadFile(req.id)">Download</button>
+              <button class="btn btn-warning btn-sm me-1" *ngIf="editingId !== req.id" (click)="editRequirement(req)">Edit</button>
+          
+              <button class="btn btn-sm btn-success me-1" *ngIf="editingId === req.id" (click)="saveRow(req)">Save</button>
+              <button class="btn btn-sm btn-secondary me-1" *ngIf="editingId === req.id" (click)="cancelEdit()">Cancel</button>
+          
+              <button class="btn btn-danger btn-sm" *ngIf="editingId !== req.id" (click)="deleteRequirement(req.id)">Delete</button>
+
+              <!-- Rank Resume Button -->
+              <button class="btn btn-info btn-sm"  *ngIf="editingId !== req.id"  (click)="rankResume(req.id)">Rank Resume</button>
+
+            </td>
+          </tr>
+          
+      </tbody>
+    </table>
+  </div>

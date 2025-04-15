@@ -1,0 +1,20 @@
+.container {
+    font-family: Arial, sans-serif;
+  }
+  
+  
+  .table th, .table td {
+    text-align: center;
+  }
+  
+  .text-primary {
+    color: blue !important;
+  }
+  
+  .text-danger {
+    color: red !important;
+  }
+  
+  img {
+    object-fit: cover;
+  }

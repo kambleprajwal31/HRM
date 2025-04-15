@@ -1,0 +1,26 @@
+<div class="container">
+    <h2>Rank Resumes</h2>
+  
+    <div class="mb-3">
+      <label for="jobDesc" class="form-label">Job Description</label>
+      <input type="file" id="jobDesc" (change)="onJobDescFileSelected($event)" class="form-control" required />
+    </div>
+  
+    <div class="mb-3">
+      <label for="resumes" class="form-label">Resumes</label>
+      <input type="file" id="resumes" (change)="onResumeFilesSelected($event)" class="form-control" multiple required />
+    </div>
+  
+    <button class="btn btn-primary" (click)="rankResume()">Rank Resumes</button>
+  
+    <!-- Display ranked results -->
+    <div *ngIf="rankedResults">
+      <h3>Ranked Resumes</h3>
+      <ul>
+        <li *ngFor="let result of rankedResults">
+          {{ result.resume_name }}: {{ result.rank }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  

@@ -1,0 +1,60 @@
+<div class="container mt-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center">
+        <h4>Today, {{ currentDate }}</h4>
+        <button class="btn btn-primary">+ Add Employee</button>
+    </div>
+
+    <!-- Attendance Rate Chart -->
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <div class="card p-3">
+                <h6>Attendance Rate</h6>
+                <canvas #attendanceChart></canvas>
+                <button class="btn btn-light mt-2">Download Report</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h6>Employee Type</h6>
+                <canvas #employeeTypeChart></canvas>
+                <p class="mt-2 text-center"><strong>{{ totalEmployees }} Employees</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Employee Attendance Table -->
+    <div class="card mt-4 p-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h6>Employee Attendance</h6>
+            <input type="text" class="form-control w-25" placeholder="Search" [(ngModel)]="searchText">
+            <button class="btn btn-light">Download Report</button>
+        </div>
+
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th *ngFor="let day of daysInMonth">
+                        {{ day }}
+                    </th>
+                    <th>Leave</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let emp of filteredEmployees()">
+                    <td class="d-flex align-items-center">
+                        <img [src]="emp.image" class="rounded-circle me-2" width="30" height="30" />
+                        {{ emp.name }}
+                    </td>
+                    <td *ngFor="let status of emp.attendance">
+                        <span [ngClass]="{'text-primary': status === '✓', 'text-danger': status === 'X'}">
+                            {{ status }}
+                        </span>
+                    </td>
+                    <td>{{ emp.leave }} Day</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+.nav-tabs .nav-link {
+    border: 1px solid #dee2e6;
+    color: #333;
+    transition: 0.2s;
+  }
+  
+  .nav-tabs .nav-link:hover {
+    background-color: #f8f9fa;
+    color: #0d6efd;
+  }
+  
+  .nav-tabs .nav-link.active {
+    background-color: #ffffff;
+    border-bottom: 2px solid #0d6efd;
+    color: #0d6efd;
+  }
+  .card {
+    border-radius: 1rem; /* Rounded card */
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-4px); /* Subtle lift */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08); /* Embossed look */
+  }
+  .card img.rounded-circle {
+    border: 3px solid #f1f5f9; /* light border */
+    box-shadow:
+    0 10px 20px rgba(99, 102, 241, 0.15),   /* Indigo/blue shadow */
+    0 0 0 1px rgba(99, 102, 241, 0.05);     /* Subtle border glow */
+}

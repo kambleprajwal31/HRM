@@ -1,0 +1,117 @@
+<div class="container my-4">
+    <div class="row g-4">
+  
+      <!-- Today Presents -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card shadow-sm text-center p-3">
+          <h4 class="mb-1"><strong>1192</strong> / 1206</h4>
+          <div class="text-primary mb-2">Today Presents</div>
+          <div class="progress" style="height: 6px;">
+            <div
+              class="progress-bar bg-primary"
+              role="progressbar"
+              style="width: 80%;"
+              aria-valuenow="80"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Planned Leaves -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card shadow-sm text-center p-3">
+          <h4 class="mb-1"><strong>128</strong> / 1206</h4>
+          <div class="text-warning mb-2">Planned Leaves</div>
+          <div class="progress" style="height: 6px;">
+            <div
+              class="progress-bar bg-warning"
+              role="progressbar"
+              style="width: 20%;"
+              aria-valuenow="20"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Unplanned Leaves -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card shadow-sm text-center p-3">
+          <h4 class="mb-1"><strong>12</strong> / 1206</h4>
+          <div class="text-info mb-2">Unplanned Leaves</div>
+          <div class="progress" style="height: 6px;">
+            <div
+              class="progress-bar bg-info"
+              role="progressbar"
+              style="width: 49%;"
+              aria-valuenow="49"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Pending Requests -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card shadow-sm text-center p-3">
+          <h4 class="mb-1"><strong>50</strong> / 70</h4>
+          <div class="text-danger mb-2">Pending Requests</div>
+          <div class="progress" style="height: 6px;">
+            <div
+              class="progress-bar bg-danger"
+              role="progressbar"
+              style="width: 68%;"
+              aria-valuenow="68"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  
+  
+  <!-- Table Section -->
+  <div class="table-header">
+    <h2>Employee’s Leave</h2>
+    <input type="text" placeholder="Search" [(ngModel)]="searchText" />
+    <button (click)="addLeave()">+ Add Leave</button>
+  </div>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Leave Type</th>
+        <th>Department</th>
+        <th>Days</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let leave of filteredLeaves()">
+        <td>{{ leave.name }}</td>
+        <td [ngClass]="leave.leaveType.toLowerCase()">{{ leave.leaveType }}</td>
+        <td>{{ leave.department }}</td>
+        <td>{{ leave.days }}</td>
+        <td>{{ leave.start }}</td>
+        <td>{{ leave.end }}</td>
+        <td>
+          <span class="status" [ngClass]="leave.status.toLowerCase()">{{ leave.status }}</span>
+        </td>
+        <td>
+          <button (click)="openAction(leave)">...</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  

@@ -1,0 +1,158 @@
+<!-- 📄 Register Employee Page -->
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
+  <div class="row shadow-lg overflow-hidden w-100 bg-white" style="max-width: 1100px; border-radius: 25px;">
+
+    <!-- 🔹 Left Panel: Registration Form -->
+    <div class="col-md-7 p-5">
+      <h3 class="fw-bold text-dark mb-4">
+        <i class="bi bi-person-plus-fill text-success me-2"></i>Register New Employee
+      </h3>
+
+      <form (ngSubmit)="registerEmployee()" #employeeForm="ngForm">
+        <div class="row g-4">
+
+          <!-- First Name -->
+          <div class="col-md-6">
+            <label class="form-label required-label">First Name</label>
+            <input type="text" class="form-control form-control-lg shadow-sm" [(ngModel)]="employee.firstName" name="firstName" required>
+          </div>
+
+          <!-- Last Name -->
+          <div class="col-md-6">
+            <label class="form-label required-label">Last Name</label>
+            <input type="text" class="form-control form-control-lg shadow-sm" [(ngModel)]="employee.lastName" name="lastName" required>
+          </div>
+
+          <!-- Username -->
+          <div class="col-md-6">
+            <label class="form-label required-label">Username</label>
+            <input type="text" class="form-control form-control-lg shadow-sm" [(ngModel)]="employee.username" name="username" required id="username">
+          </div>
+
+          <!-- Email -->
+          <div class="col-md-6">
+            <label class="form-label required-label">Email</label>
+            <input type="email" class="form-control form-control-lg shadow-sm" [(ngModel)]="employee.email" name="email" required #emailRef="ngModel">
+            <div *ngIf="emailRef.invalid && emailRef.touched" class="text-danger">
+              <small *ngIf="emailRef.errors?.['required']">Email is required.</small>
+              <small *ngIf="emailRef.errors?.['email']">Invalid email format.</small>
+            </div>
+            <div *ngIf="emailError" class="text-danger"><small>{{ emailError }}</small></div>
+          </div>
+
+          <!-- Password -->
+          <div class="col-md-6">
+            <label class="form-label required-label">Password</label>
+            <input type="password" class="form-control form-control-lg shadow-sm" [(ngModel)]="employee.password" name="password" (ngModelChange)="validatePassword($event)" required>
+            <small *ngIf="passwordStrength" [ngClass]="{
+              'text-danger': passwordStrength === 'Weak',
+              'text-warning': passwordStrength === 'Medium',
+              'text-success': passwordStrength === 'Strong'
+            }">Strength: {{ passwordStrength }}</small>
+            <div *ngIf="!isPasswordValid && employee.password">
+              <small class="text-danger">Password must be at least 8 characters and include an uppercase letter, a number, and a special character.</small>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="col-md-6">
+            <label class="form-label required-label">Phone Number</label>
+            <input type="text" class="form-control form-control-lg shadow-sm" [(ngModel)]="employee.phoneNumber" name="phoneNumber" required pattern="^[0-9]{10}$" #phoneRef="ngModel">
+            <div *ngIf="phoneRef.invalid && phoneRef.touched" class="text-danger">
+              <small *ngIf="phoneRef.errors?.['required']">Phone number is required.</small>
+              <small *ngIf="phoneRef.errors?.['pattern']">Phone number must be 10 digits.</small>
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="col-12">
+            <label class="form-label required-label">Address</label>
+            <textarea class="form-control form-control-lg shadow-sm" rows="2" [(ngModel)]="employee.address" name="address" required></textarea>
+          </div>
+
+          <!-- Department -->
+          <div class="col-md-6">
+            <label class="form-label required-label">Department</label>
+            <select class="form-select form-select-lg shadow-sm" [(ngModel)]="employee.departmentId" name="departmentId" required (change)="onDepartmentChange($event)">
+              <option value="" disabled selected>Select Department</option>
+              <option *ngFor="let dept of departments" [value]="dept.id">{{ dept.name }}</option>
+            </select>
+          </div>
+
+          <!-- Role -->
+          <div class="col-md-6">
+            <label class="form-label required-label">Role</label>
+            <select class="form-select form-select-lg shadow-sm" [(ngModel)]="employee.roleId" name="roleId" required>
+              <option value="" disabled selected>Select Role</option>
+              <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+            </select>
+          </div>
+
+          <!-- Employee Type -->
+          <div class="col-md-6">
+            <label class="form-label required-label">Employee Type</label>
+            <select class="form-select form-select-lg shadow-sm" [(ngModel)]="employee.employeeType" name="employeeType" required>
+              <option value="" disabled selected>Select Type</option>
+              <option value="ONSITE">OnSite</option>
+              <option value="REMOTE">Remote</option>
+              <option value="HYBRID">Hybrid</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center mt-5">
+          <button class="btn btn-lg btn-primary px-5 py-2 shadow fw-bold" type="submit" [disabled]="!employeeForm.form.valid || !isPasswordValid">
+            <i class="bi bi-person-check-fill me-2"></i>Register
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- 🔹 Right Panel: Upload Visual -->
+    <div class="col-md-5 d-none d-md-flex flex-column align-items-center justify-content-center p-4 bg-white">
+      <div class="text-center">
+        <img src="assets/emp.jpg" alt="Upload Icon" 
+             class="mb-3 rounded-circle" 
+             style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #ddd;">
+
+        <h5 class="fw-semibold mt-2">Upload Employee Photo</h5>
+        <p class="small text-muted">Add a profile image to personalize the employee profile.</p>
+
+        <button class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#uploadImageModal">
+          Upload Image
+        </button>
+      </div>
+    </div>
+
+    <!-- 📸 Upload Image Modal -->
+    <div class="modal fade" id="uploadImageModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 shadow">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold">Upload Employee Image</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body text-center">
+            <input type="file" class="form-control mb-3" (change)="onFileSelected($event)" accept="image/*" />
+            <img *ngIf="imagePreview" [src]="imagePreview" class="img-thumbnail rounded-circle" width="120" />
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success w-100" (click)="uploadEmployeeImage()">Upload</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div class="toast align-items-center text-white bg-success border-0" role="alert" #uploadToast>
+        <div class="d-flex">
+          <div class="toast-body">Employee image uploaded successfully!</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

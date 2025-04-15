@@ -1,0 +1,34 @@
+<h2 class="text-center fw-bold my-4">HR Profile</h2>
+
+<div *ngIf="hr" class="container d-flex justify-content-center">
+  <div class="card shadow rounded-4 p-4" style="max-width: 900px; width: 100%;">
+    <div class="row align-items-center">
+
+      <!-- Left: Profile Image -->
+      <div class="col-md-4 text-center mb-4 mb-md-0">
+        <img [src]="hr.image" alt="HR Image" class="rounded-circle border shadow-sm" width="150" height="150" />
+      </div>
+
+      <!-- Right: Details -->
+      <div class="col-md-8 d-flex flex-column justify-content-between">
+        <div>
+          <div class="row mb-2"><div class="col-5 fw-semibold">Name:</div><div class="col-7">{{ hr.fullName }}</div></div>
+          <div class="row mb-2"><div class="col-5 fw-semibold">Email:</div><div class="col-7">{{ hr.email }}</div></div>
+          <div class="row mb-2"><div class="col-5 fw-semibold">HR ID:</div><div class="col-7">{{ hr.hrId }}</div></div>
+          <div class="row mb-2"><div class="col-5 fw-semibold">Phone:</div><div class="col-7">{{ hr.phoneNumber }}</div></div>
+          <div class="row mb-2"><div class="col-5 fw-semibold">DOB:</div><div class="col-7">{{ hr.dob }}</div></div>
+          <div class="row mb-2"><div class="col-5 fw-semibold">Gender:</div><div class="col-7">{{ hr.gender }}</div></div>
+          <div class="row mb-2"><div class="col-5 fw-semibold">Marital Status:</div><div class="col-7">{{ hr.maritalStatus }}</div></div>
+          <div class="row mb-2"><div class="col-5 fw-semibold">Designation:</div><div class="col-7">{{ hr.designation }}</div></div>
+          <div class="row mb-2"><div class="col-5 fw-semibold">Joining Date:</div><div class="col-7">{{ hr.joiningDate }}</div></div>
+        </div>
+
+        <!-- Bottom-Right Button -->
+        <div class="text-end mt-4">
+          <button class="btn btn-primary px-4">Change Password</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

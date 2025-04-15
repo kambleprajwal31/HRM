@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg bg-white px-4 py-2 shadow-sm">
+    <!-- Toggle Button -->
+    <button class="btn toggle-btn me-3" (click)="onToggleSidebar()">
+      <i class="bi bi-list"></i>
+    </button>
+  
+    <!-- (optional) brand -->
+    <a class="navbar-brand fw-bold text-dark" href="#"></a>
+
+   
+  
+    <!-- User Info Dropdown -->
+    <div class="ms-auto d-flex align-items-center dropdown">
+      <!-- <div class="theme-toggle-switch d-flex align-items-center ms-2">
+        <i class="bi bi-brightness-high-fill me-2"></i>
+        <label class="switch">
+          <input type="checkbox" [checked]="isDarkMode" (change)="toggleTheme()" />
+          <span class="slider round"></span>
+        </label>
+        <i class="bi bi-moon-fill ms-2"></i>
+      </div> -->
+      <a
+        class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
+        href="#"
+        id="userDropdown"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <span class="me-2">Welcome, {{ username }}</span>
+        <img [src]="hr.image" alt="User" class="rounded-circle" width="40" height="40">
+      </a>
+
+    
+      
+  
+      <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="userDropdown">
+        <li>
+          <a class="dropdown-item" [routerLink]="['/dashboard/profile']">Profile</a>
+        </li>
+        <li><hr class="dropdown-divider" /></li>
+        <li>
+          <a class="dropdown-item text-danger" href="#" (click)="logout()">Logout</a>
+        </li>
+      </ul>      
+    </div>
+  </nav>
+  
